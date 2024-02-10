@@ -2,7 +2,6 @@
   "name": "SBU",
   "version": "0.0.1",
   "private": true,
-  "type": "module",
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
@@ -11,6 +10,8 @@
     "test": "jest"
   },
   "dependencies": {
+    "@google-cloud/vision": "^4.0.3",
+    "openai": "^4.27.0",
     "react": "18.2.0",
     "react-native": "0.73.4",
     "react-native-image-picker": "^7.1.0"
