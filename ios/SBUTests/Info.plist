@@ -20,5 +20,9 @@
 	<string>????</string>
 	<key>CFBundleVersion</key>
 	<string>1</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Your custom message for accessing the photo library</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Your custom message for accessing the camera</string>
 </dict>
 </plist>

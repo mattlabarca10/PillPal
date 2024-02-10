@@ -1,26 +1,17 @@
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, TextInput, Button, View, Image } from 'react-native';
-import { fetchData } from './api/GeminiAPI'; // Adjust the path as necessary
-//import { selectImage } from './components/Image'; // Ensure this path is correct
+import { fetchData } from './api/GeminiAPI';
+import ImageUploadComponent from './components/Image';
 
-//interface ImageSource {
-// uri: string;
-//}
 
 const App = () => {
   const [inputText, setInputText] = useState('');
   const [response, setResponse] = useState('');
-  const [imageUri, setImageUri] = useState(null); // State to hold the image URI
 
   const handleFetchData = async () => {
     const responseText = await fetchData(inputText);
     setResponse(responseText);
   };
-
-  // Function to handle image selection
-  // const handleSelectImage = () => {
-  //selectImage((source: ImageSource) => setImageUri(source));
-  //};
 
   return (
     <SafeAreaView style={styles.container}>
@@ -32,9 +23,7 @@ const App = () => {
       />
       <Button title="Fetch Data" onPress={handleFetchData} />
       <Text style={styles.response}>{response}</Text>
-      {/* <Button title="Select Image" onPress={handleSelectImage} /> */}
-      {/* Display the selected image if available */}
-      {/*imageUri && <Image source={imageUri} style={styles.image} />*/}
+      <ImageUploadComponent />
     </SafeAreaView>
   );
 };
