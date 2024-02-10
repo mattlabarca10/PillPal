@@ -11,6 +11,7 @@ import com.facebook.react.defaults.DefaultReactHost.getDefaultReactHost
 import com.facebook.react.defaults.DefaultReactNativeHost
 import com.facebook.react.flipper.ReactNativeFlipper
 import com.facebook.soloader.SoLoader
+import com.zmxv.RNSound.RNSoundPackage;
 
 class MainApplication : Application(), ReactApplication {
 
@@ -42,4 +43,12 @@ class MainApplication : Application(), ReactApplication {
     }
     ReactNativeFlipper.initializeFlipper(this, reactNativeHost.reactInstanceManager)
   }
+
+  @Override
+protected List<ReactPackage> getPackages() {
+    return Arrays.<ReactPackage>asList(
+        new MainReactPackage(),
+        new RNSoundPackage() // <-- New
+    );
+}
 }
