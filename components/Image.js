@@ -22,7 +22,7 @@ const ImageUploadComponent = () => {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets.length > 0) {
         const source = { uri: response.assets[0].uri };
-        setImageSource(source.uri);
+        setImageSource(source);
         //console.log('Image Source:', source.uri);
       }
     });
