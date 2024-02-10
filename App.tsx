@@ -23,6 +23,7 @@ const App = () => {
       <Button title="Fetch Data" onPress={handleFetchData} />
       <Text style={styles.response}>{response}</Text>
       <ImageUploadComponent />
+
     </SafeAreaView>
   );
 };

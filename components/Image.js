@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
-import { Button, Image, View } from 'react-native';
+import { Button, Image, Text, View, StyleSheet, ScrollView } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const ImageUploadComponent = () => {
   const [imageSource, setImageSource] = useState(null);
+  const [imageData, setImageData] = useState(null);
 
   const selectImage = () => {
     const options = {
@@ -46,6 +47,7 @@ const ImageUploadComponent = () => {
       const json = await response.json();
       console.log('Response from server:', json);
       console.log(json.data);
+      setImageData(json.data);
   
       if (json.message) {
         // Do something with the response message
@@ -62,9 +64,21 @@ const ImageUploadComponent = () => {
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
       <Button title="Select Image" onPress={selectImage} />
-      {imageSource && <Image source={imageSource} style={{width: 200, height: 200}} />}
+      {/*imageSource && <Image source={imageSource} style={{width: 200, height: 200}} />*/}
+      <ScrollView>
+      {imageData && <Text style={styles.ai}> {imageData} </Text>}
+      </ScrollView>
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+    ai: {
+      fontSize: 35,
+      fontWeight: 'bold',
+      textAlign: 'center',
+      margin: 20,
+    },
+});
 
 export default ImageUploadComponent;
