@@ -13,6 +13,7 @@ const ImageUploadComponent = () => {
         path: 'images',
       },
       mediaType: 'photo',
+      includeBase64: true,
     };
 
     launchImageLibrary(options, (response) => {
@@ -23,10 +24,40 @@ const ImageUploadComponent = () => {
       } else if (response.assets && response.assets.length > 0) {
         const source = { uri: response.assets[0].uri };
         setImageSource(source);
-        //console.log('Image Source:', source.uri);
+        if (response.assets[0].base64) {
+          uploadImage(response.assets[0].base64);
+        }
       }
     });
   };
+
+  const uploadImage = async (base64Image) => {
+    try {
+      const response = await fetch('http://localhost:3007/vision/analyze-image', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          image: base64Image,
+        }),
+      });
+  
+      const json = await response.json();
+      console.log('Response from server:', json);
+      console.log(json.data);
+  
+      if (json.message) {
+        // Do something with the response message
+        alert('Image processed: ' + json.message);
+      }
+  
+    } catch (error) {
+      console.error('Error uploading image:', error);
+      alert('Failed to upload image: ' + error);
+    }
+  };
+  
 
   return (
     <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
