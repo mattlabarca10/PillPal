@@ -3,7 +3,6 @@ import { SafeAreaView, StyleSheet, Text, TextInput, Button, View, Image } from '
 import { fetchData } from './api/GeminiAPI';
 import ImageUploadComponent from './components/Image';
 
-
 const App = () => {
   const [inputText, setInputText] = useState('');
   const [response, setResponse] = useState('');
