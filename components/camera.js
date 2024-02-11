@@ -75,7 +75,7 @@ const UploadComponent = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        'http://localhost:3007/vision/analyze-image',
+        'https://backend-9b1x.onrender.com/vision/analyze-image',
         {
           method: 'POST',
           headers: {
@@ -126,22 +126,22 @@ const UploadComponent = () => {
 
       {!loading && (
         <>
-        <RNPickerSelect
-        onValueChange={(value) => setLanguage(value)}
-        items={[
-          { label: 'English', value: 'english' },
-          { label: 'Mandarin', value: 'mandarin' },
-          { label: 'Russian', value: 'russian' },
-          { label: 'Spanish', value: 'spanish' },
-          { label: 'Vietnamese', value: 'vietnamese' },
-        ]}
-        style={pickerSelectStyles}
-        placeholder={{ label: 'Select a language...', value: null }}
-        />
+          <RNPickerSelect
+            onValueChange={value => setLanguage(value)}
+            items={[
+              {label: 'English', value: 'english'},
+              {label: 'Mandarin', value: 'mandarin'},
+              {label: 'Russian', value: 'russian'},
+              {label: 'Spanish', value: 'spanish'},
+              {label: 'Vietnamese', value: 'vietnamese'},
+            ]}
+            style={pickerSelectStyles}
+            placeholder={{label: 'Select a language...', value: null}}
+          />
 
-        <TouchableOpacity onPress={selectImage} style={styles.button}>
-          <Text style={styles.buttonText}>Select Image</Text>
-        </TouchableOpacity>
+          <TouchableOpacity onPress={selectImage} style={styles.button}>
+            <Text style={styles.buttonText}>Select Image</Text>
+          </TouchableOpacity>
         </>
       )}
       {!loading && (

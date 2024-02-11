@@ -16,7 +16,7 @@ const SoundComponent = ({sound}) => {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const newSound = 'http://localhost:3007/' + sound;
+    const newSound = 'https://backend-9b1x.onrender.com/' + sound;
     audio.current = new Sound(newSound, null, error => {
       console.log(sound);
       if (error) {
@@ -24,6 +24,7 @@ const SoundComponent = ({sound}) => {
         return;
       }
       // if loaded successfully
+
       console.log(
         'duration in seconds: ' +
           audio.current.getDuration() +
