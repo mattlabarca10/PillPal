@@ -49,7 +49,7 @@ const ImageUploadComponent = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        'http://localhost:3007/vision/analyze-image',
+        'https://backend-9b1x.onrender.com/vision/analyze-image',
         {
           method: 'POST',
           headers: {
@@ -99,8 +99,8 @@ const ImageUploadComponent = () => {
       </ScrollView>
       {!loading && (
         <TouchableOpacity onPress={selectImage} style={styles.button}>
-        <Text style={styles.buttonText}>Select Image</Text>
-      </TouchableOpacity>
+          <Text style={styles.buttonText}>Select Image</Text>
+        </TouchableOpacity>
       )}
     </View>
   );

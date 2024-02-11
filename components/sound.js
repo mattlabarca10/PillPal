@@ -16,7 +16,8 @@ const SoundComponent = ({sound}) => {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    audio.current = new Sound(sound, null, error => {
+    const newSound = 'https://backend-9b1x.onrender.com/' + sound;
+    audio.current = new Sound(newSound, null, error => {
       console.log(sound);
       if (error) {
         console.log('failed to load the sound', error);
