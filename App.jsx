@@ -1,38 +1,28 @@
-import React, {useState, useEffect} from 'react';
+import React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/HomeScreen'; // Adjust path as needed
+import SignInScreen from './screens/SignInScreen'; // Adjust path as needed
+import SignUpScreen from './screens/SignUpScreen'; // Adjust path as needed
 import {
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  Button,
-  View,
-  Image,
-  TouchableOpacity,
+  StyleSheet
 } from 'react-native';
-//import { fetchData } from './api/GeminiAPI';
-import UploadComponent from './components/camera.js';
-import CustomHeader from './components/CustomHeader.jsx';
+//import UploadComponent from './components/camera'; // Assuming this is a screen component
+
+const Stack = createStackNavigator();
 
 const App = () => {
-  const [inputText, setInputText] = useState('');
-  const [response, setResponse] = useState('');
-
-  /*
-  const handleFetchData = async () => {
-    const responseText = await fetchData(inputText);
-    setResponse(responseText);
-  };
-  */
-
   return (
-    <SafeAreaView style={styles.container}>
-      <CustomHeader onSettingsPress={() => alert('Settings Pressed')} />
-      <Text style={styles.response}>{response}</Text>
-      <UploadComponent />
-    </SafeAreaView>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen name="Home" component={HomeScreen} />
+        <Stack.Screen name="SignIn" component={SignInScreen} />
+        <Stack.Screen name="SignUp" component={SignUpScreen} />
+        {/* Add other screens here as needed */}
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
