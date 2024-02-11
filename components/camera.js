@@ -91,7 +91,7 @@ const UploadComponent = () => {
           body: JSON.stringify({
             image: base64Image,
             language: language,
-            jwt_token: token,
+            jwt_token: await token,
           }),
         },
       );
