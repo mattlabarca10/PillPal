@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -25,6 +25,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <CustomHeader onSettingsPress={() => alert('Settings Pressed')} />
       <Text style={styles.response}>{response}</Text>
       <UploadComponent />
     </SafeAreaView>
