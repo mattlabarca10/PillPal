@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   Button,
   Image,
@@ -9,9 +9,11 @@ import {
   ActivityIndicator,
   TouchableOpacity,
 } from 'react-native';
-import { launchImageLibrary } from 'react-native-image-picker';
+import {launchImageLibrary} from 'react-native-image-picker';
+import SoundComponent from './sound.js';
 
 const ImageUploadComponent = () => {
+  const [jsonData, setJsonData] = useState(null);
   const [imageSource, setImageSource] = useState(null);
   const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(false);
@@ -28,13 +30,13 @@ const ImageUploadComponent = () => {
       includeBase64: true,
     };
 
-    launchImageLibrary(options, (response) => {
+    launchImageLibrary(options, response => {
       if (response.didCancel) {
         console.log('User cancelled image picker');
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets.length > 0) {
-        const source = { uri: response.assets[0].uri };
+        const source = {uri: response.assets[0].uri};
         setImageSource(source);
         if (response.assets[0].base64) {
           uploadImage(response.assets[0].base64);
@@ -43,23 +45,27 @@ const ImageUploadComponent = () => {
     });
   };
 
-  const uploadImage = async (base64Image) => {
-    setLoading(true); 
+  const uploadImage = async base64Image => {
+    setLoading(true);
     try {
-      const response = await fetch('http://localhost:3007/vision/analyze-image', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await fetch(
+        'http://localhost:3007/vision/analyze-image',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            image: base64Image,
+          }),
         },
-        body: JSON.stringify({
-          image: base64Image,
-        }),
-      });
+      );
 
       const json = await response.json();
       console.log('Response from server:', json);
       setImageData(json.data);
-      setSound(json.sound);
+      setSound(json.sound); // this is the url i need
+      setJsonData(json); // this sets the json data to the state variable jsonData and then it allows rendering of the component
 
       if (json.message) {
         alert('Image processed: ' + json.message);
@@ -92,6 +98,7 @@ const ImageUploadComponent = () => {
           {/* imageSource && <Image source={imageSource} style={styles.image} /> */}
         </ScrollView>
       )}
+      {!loading && sound && <SoundComponent sound={sound} />}
     </View>
   );
 };
@@ -99,17 +106,17 @@ const ImageUploadComponent = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff', 
+    backgroundColor: '#fff',
   },
   button: {
-    backgroundColor: '#007bff', 
+    backgroundColor: '#007bff',
     padding: 15,
     borderRadius: 5,
     margin: 20,
   },
   buttonText: {
-    color: '#fff', 
-    fontSize: 20, 
+    color: '#fff',
+    fontSize: 20,
     textAlign: 'center',
   },
   loadingContainer: {
@@ -120,7 +127,7 @@ const styles = StyleSheet.create({
   loadingText: {
     marginTop: 10,
     fontSize: 18,
-    color: '#0000ff', 
+    color: '#0000ff',
   },
   scrollView: {
     padding: 20,
@@ -132,15 +139,15 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   ai: {
-    fontSize: 40, 
+    fontSize: 40,
     fontWeight: 'normal',
     textAlign: 'left',
     marginBottom: 20,
   },
   image: {
-    width: 300, 
-    height: 300, 
-    resizeMode: 'contain', 
+    width: 300,
+    height: 300,
+    resizeMode: 'contain',
     marginBottom: 20,
   },
 });
