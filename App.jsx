@@ -12,7 +12,15 @@ import {
 //import { fetchData } from './api/GeminiAPI';
 import ImageUploadComponent from './components/Image';
 import CustomHeader from './components/CustomHeader';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/stack';
+import HomeScreen from './screens/Home';
+import { type } from 'os';
 
+export type RootStackParamList = {
+  Home: undefined;
+  //Details: { userId: string };
+};
 const Sound = require('react-native-sound');
 
 const App = () => {
