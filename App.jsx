@@ -12,21 +12,25 @@ import {
 import {fetchData} from './api/GeminiAPI';
 import ImageUploadComponent from './components/Image';
 const Sound = require('react-native-sound');
-import dings from './assets/ding.mp3';
+// import dings from './assets/ding.mp3';
 
-var ding = new Sound(dings, error => {
-  if (error) {
-    console.log('failed to load the sound', error);
-    return;
-  }
-  // if loaded successfully
-  console.log(
-    'duration in seconds: ' +
-      ding.getDuration() +
-      'number of channels: ' +
-      ding.getNumberOfChannels(),
-  );
-});
+var audio = new Sound(
+  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
+  null,
+  error => {
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // if loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        audio.getDuration() +
+        'number of channels: ' +
+        audio.getNumberOfChannels(),
+    );
+  },
+);
 
 const App = () => {
   const [inputText, setInputText] = useState('');
@@ -36,21 +40,29 @@ const App = () => {
     const responseText = await fetchData(inputText);
     setResponse(responseText);
   };
-
+  const [playing, setPlaying] = useState();
   useEffect(() => {
-    ding.setVolume(1);
+    audio.setVolume(1);
     return () => {
-      ding.release();
+      audio.release();
     };
   }, []);
   const playPause = () => {
-    ding.play(success => {
-      if (success) {
-        console.log('successfully finished playing');
-      } else {
-        console.log('playback failed due to audio decoding errors');
-      }
-    });
+    if (audio.isPlaying()) {
+      audio.pause();
+      setPlaying(false);
+    } else {
+      setPlaying(true);
+      audio.play(success => {
+        if (success) {
+          setPlaying(false);
+          console.log('successfully finished playing');
+        } else {
+          setPlaying(false);
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    }
   };
 
   return (
@@ -66,7 +78,7 @@ const App = () => {
       <ImageUploadComponent />
 
       <TouchableOpacity style={styles.playBtn} onPress={playPause}>
-        <Text>Play</Text>
+        <Text>{playing ? 'Pause' : 'Play'}</Text>
       </TouchableOpacity>
     </SafeAreaView>
   );
