@@ -1,23 +1,23 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import {
   Button,
-  Image,
-  Text,
   View,
   StyleSheet,
   ScrollView,
   ActivityIndicator,
+  Text,
   TouchableOpacity,
 } from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import { launchImageLibrary } from 'react-native-image-picker';
+import RNPickerSelect from 'react-native-picker-select'; // Import the picker
 import SoundComponent from './sound.js';
 
 const ImageUploadComponent = () => {
   const [jsonData, setJsonData] = useState(null);
   const [imageSource, setImageSource] = useState(null);
-  const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sound, setSound] = useState(null);
+  const [language, setLanguage] = useState('english'); // Language state
 
   const selectImage = () => {
     const options = {
@@ -36,7 +36,7 @@ const ImageUploadComponent = () => {
       } else if (response.errorCode) {
         console.log('ImagePicker Error: ', response.errorMessage);
       } else if (response.assets && response.assets.length > 0) {
-        const source = {uri: response.assets[0].uri};
+        const source = { uri: response.assets[0].uri };
         setImageSource(source);
         if (response.assets[0].base64) {
           uploadImage(response.assets[0].base64);
@@ -57,15 +57,15 @@ const ImageUploadComponent = () => {
           },
           body: JSON.stringify({
             image: base64Image,
+            language: language,
           }),
         },
       );
 
       const json = await response.json();
       console.log('Response from server:', json);
-      setImageData(json.data);
-      setSound(json.sound); // this is the url i need
-      setJsonData(json); // this sets the json data to the state variable jsonData and then it allows rendering of the component
+      setSound(json.sound);
+      setJsonData(json);
 
       if (json.message) {
         alert('Image processed: ' + json.message);
@@ -74,34 +74,46 @@ const ImageUploadComponent = () => {
       console.error('Error uploading image:', error);
       alert('Failed to upload image: ' + error);
     } finally {
-      setLoading(false); // Stop loading irrespective of the result
+      setLoading(false);
     }
   };
 
   return (
     <View style={styles.mainContainer}>
       <ScrollView style={styles.scrollView}>
-        {/* All your scrollable content goes here */}
         {loading && (
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#0000ff" />
             <Text style={styles.loadingText}>Analyzing Image...</Text>
           </View>
         )}
-        {!loading && imageData && (
+        {!loading && (
           <>
-            {/*<Text style={styles.headerText}>Image Analysis</Text>*/}
-            <Text style={styles.ai}>{imageData}</Text>
-            {/* imageSource && <Image source={imageSource} style={styles.image} /> */}
-            {!loading && sound && <SoundComponent sound={sound} />}
+            <RNPickerSelect
+              onValueChange={(value) => setLanguage(value)}
+              items={[
+                { label: 'English', value: 'english' },
+                { label: 'Spanish', value: 'spanish' },
+                { label: 'Vietnamese', value: 'vietnamese' },
+                { label: 'Russian', value: 'russian' },
+                { label: 'Bengali', value: 'bengali' }
+
+              ]}
+              style={pickerSelectStyles}
+              placeholder={{ label: 'Select a language...', value: null }}
+            />
+            <TouchableOpacity onPress={selectImage} style={styles.button}>
+              <Text style={styles.buttonText}>Select Image</Text>
+            </TouchableOpacity>
+          </>
+        )}
+        {jsonData && (
+          <>
+            <Text style={styles.ai}>{jsonData.data}</Text>
+            {sound && <SoundComponent sound={sound} />}
           </>
         )}
       </ScrollView>
-      {!loading && (
-        <TouchableOpacity onPress={selectImage} style={styles.button}>
-        <Text style={styles.buttonText}>Select Image</Text>
-      </TouchableOpacity>
-      )}
     </View>
   );
 };
@@ -158,6 +170,29 @@ const styles = StyleSheet.create({
     height: 300,
     resizeMode: 'contain',
     marginBottom: 20,
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
   },
 });
 
