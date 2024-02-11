@@ -43,7 +43,7 @@ const ImageUploadComponent = () => {
   };
 
   const uploadImage = async (base64Image) => {
-    setLoading(true); // Start loading
+    setLoading(true); 
     try {
       const response = await fetch('http://localhost:3007/vision/analyze-image', {
         method: 'POST',
