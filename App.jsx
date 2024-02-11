@@ -9,38 +9,36 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {fetchData} from './api/GeminiAPI';
+//import { fetchData } from './api/GeminiAPI';
 import ImageUploadComponent from './components/Image';
 const Sound = require('react-native-sound');
 // import dings from './assets/ding.mp3';
 
-var audio = new Sound(
-  'https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3',
-  null,
-  error => {
-    if (error) {
-      console.log('failed to load the sound', error);
-      return;
-    }
-    // if loaded successfully
-    console.log(
-      'duration in seconds: ' +
-        audio.getDuration() +
-        'number of channels: ' +
-        audio.getNumberOfChannels(),
-    );
-  },
-);
+var ding = new Sound(dings, error => {
+  if (error) {
+    console.log('failed to load the sound', error);
+    return;
+  }
+  // if loaded successfully
+  console.log(
+    'duration in seconds: ' +
+      ding.getDuration() +
+      'number of channels: ' +
+      ding.getNumberOfChannels(),
+  );
+});
 
 const App = () => {
   const [inputText, setInputText] = useState('');
   const [response, setResponse] = useState('');
 
+  /*
   const handleFetchData = async () => {
     const responseText = await fetchData(inputText);
     setResponse(responseText);
   };
-  const [playing, setPlaying] = useState();
+  */
+
   useEffect(() => {
     audio.setVolume(1);
     return () => {
@@ -67,13 +65,13 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
+      {/*<TextInput
         style={styles.input}
         placeholder="Enter text"
         value={inputText}
         onChangeText={setInputText}
-      />
-      <Button title="Fetch Data" onPress={handleFetchData} />
+      />*/}
+      {/*<Button title="Fetch Data" onPress={handleFetchData} />*/}
       <Text style={styles.response}>{response}</Text>
       <ImageUploadComponent />
 
