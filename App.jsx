@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,6 +11,8 @@ import {
 } from 'react-native';
 //import { fetchData } from './api/GeminiAPI';
 import ImageUploadComponent from './components/Image';
+import CustomHeader from './components/CustomHeader';
+
 const Sound = require('react-native-sound');
 
 const App = () => {
@@ -26,6 +28,7 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <CustomHeader onSettingsPress={() => alert('Settings Pressed')} />
       <Text style={styles.response}>{response}</Text>
       <ImageUploadComponent />
     </SafeAreaView>
