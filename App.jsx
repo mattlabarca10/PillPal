@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 //import { fetchData } from './api/GeminiAPI';
 import UploadComponent from './components/camera.js';
+import CustomHeader from './components/CustomHeader.jsx';
 
 const App = () => {
   const [inputText, setInputText] = useState('');
