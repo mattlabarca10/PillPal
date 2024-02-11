@@ -10,44 +10,55 @@ import {
   TouchableOpacity,
 } from 'react-native';
 const Sound = require('react-native-sound');
-import dings from '../assets/ding.mp3';
-
-var ding = new Sound(dings, error => {
-  if (error) {
-    console.log('failed to load the sound', error);
-    return;
-  }
-  // if loaded successfully
-  console.log(
-    'duration in seconds: ' +
-      ding.getDuration() +
-      'number of channels: ' +
-      ding.getNumberOfChannels(),
-  );
-});
 
 const SoundComponent = ({sound}) => {
+  var audio = new Sound(`"${sound}"`, null, error => {
+    console.log(`"${sound}"`);
+    if (error) {
+      console.log('failed to load the sound', error);
+      return;
+    }
+    // if loaded successfully
+    console.log(
+      'duration in seconds: ' +
+        audio.getDuration() +
+        'number of channels: ' +
+        audio.getNumberOfChannels(),
+    );
+  });
+
+  const [playing, setPlaying] = useState();
   useEffect(() => {
-    ding.setVolume(1);
+    audio.setVolume(1);
     return () => {
-      ding.release();
+      audio.release();
     };
   }, []);
   const playPause = () => {
-    ding.play(success => {
-      if (success) {
-        console.log('successfully finished playing');
-      } else {
-        console.log('playback failed due to audio decoding errors');
-      }
-    });
+    if (audio.isPlaying()) {
+      audio.pause();
+      setPlaying(false);
+    } else {
+      setPlaying(true);
+      audio.play(success => {
+        if (success) {
+          setPlaying(false);
+          console.log('successfully finished playing');
+        } else {
+          setPlaying(false);
+          console.log('playback failed due to audio decoding errors');
+        }
+      });
+    }
   };
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={playPause}>
-          <Text style={styles.buttonText}>Play Sound</Text>
+          <Text style={styles.buttonText}>
+            {playing ? 'Pause Sound' : 'Play Sound'}
+          </Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
