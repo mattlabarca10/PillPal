@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
-import { Button, Image, Text, View, StyleSheet, ScrollView } from 'react-native';
+import {
+  Button,
+  Image,
+  Text,
+  View,
+  StyleSheet,
+  ScrollView,
+  ActivityIndicator,
+  TouchableOpacity,
+} from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 
 const ImageUploadComponent = () => {
   const [imageSource, setImageSource] = useState(null);
   const [imageData, setImageData] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const selectImage = () => {
     const options = {
@@ -33,6 +43,7 @@ const ImageUploadComponent = () => {
   };
 
   const uploadImage = async (base64Image) => {
+    setLoading(true); // Start loading
     try {
       const response = await fetch('http://localhost:3007/vision/analyze-image', {
         method: 'POST',
@@ -43,42 +54,93 @@ const ImageUploadComponent = () => {
           image: base64Image,
         }),
       });
-  
+
       const json = await response.json();
       console.log('Response from server:', json);
-      console.log(json.data);
       setImageData(json.data);
-  
+
       if (json.message) {
-        // Do something with the response message
         alert('Image processed: ' + json.message);
       }
-  
     } catch (error) {
       console.error('Error uploading image:', error);
       alert('Failed to upload image: ' + error);
+    } finally {
+      setLoading(false); // Stop loading irrespective of the result
     }
   };
-  
 
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Button title="Select Image" onPress={selectImage} />
-      {/*imageSource && <Image source={imageSource} style={{width: 200, height: 200}} />*/}
-      <ScrollView>
-      {imageData && <Text style={styles.ai}> {imageData} </Text>}
-      </ScrollView>
+    <View style={styles.container}>
+      {!loading && (
+        <TouchableOpacity onPress={selectImage} style={styles.button}>
+          <Text style={styles.buttonText}>Select Image</Text>
+        </TouchableOpacity>
+      )}
+      {loading && (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text style={styles.loadingText}>Analyzing Image...</Text>
+        </View>
+      )}
+      {!loading && imageData && (
+        <ScrollView style={styles.scrollView}>
+          <Text style={styles.headerText}>Image Analysis</Text>
+          <Text style={styles.ai}>{imageData}</Text>
+          {/* imageSource && <Image source={imageSource} style={styles.image} /> */}
+        </ScrollView>
+      )}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-    ai: {
-      fontSize: 35,
-      fontWeight: 'bold',
-      textAlign: 'center',
-      margin: 20,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff', 
+  },
+  button: {
+    backgroundColor: '#007bff', 
+    padding: 15,
+    borderRadius: 5,
+    margin: 20,
+  },
+  buttonText: {
+    color: '#fff', 
+    fontSize: 20, 
+    textAlign: 'center',
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 10,
+    fontSize: 18,
+    color: '#0000ff', 
+  },
+  scrollView: {
+    padding: 20,
+  },
+  headerText: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  ai: {
+    fontSize: 40, 
+    fontWeight: 'normal',
+    textAlign: 'left',
+    marginBottom: 20,
+  },
+  image: {
+    width: 300, 
+    height: 300, 
+    resizeMode: 'contain', 
+    marginBottom: 20,
+  },
 });
 
 export default ImageUploadComponent;

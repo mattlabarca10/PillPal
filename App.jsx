@@ -9,7 +9,7 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import { fetchData } from './api/GeminiAPI';
+//import { fetchData } from './api/GeminiAPI';
 import ImageUploadComponent from './components/Image';
 const Sound = require('react-native-sound');
 import dings from './assets/ding.mp3';
@@ -32,10 +32,12 @@ const App = () => {
   const [inputText, setInputText] = useState('');
   const [response, setResponse] = useState('');
 
+  /*
   const handleFetchData = async () => {
     const responseText = await fetchData(inputText);
     setResponse(responseText);
   };
+  */
 
   useEffect(() => {
     ding.setVolume(1);
@@ -55,13 +57,13 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      <TextInput
+      {/*<TextInput
         style={styles.input}
         placeholder="Enter text"
         value={inputText}
         onChangeText={setInputText}
-      />
-      <Button title="Fetch Data" onPress={handleFetchData} />
+      />*/}
+      {/*<Button title="Fetch Data" onPress={handleFetchData} />*/}
       <Text style={styles.response}>{response}</Text>
       <ImageUploadComponent />
 
