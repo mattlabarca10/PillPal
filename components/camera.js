@@ -153,7 +153,7 @@ const UploadComponent = () => {
 
       {!loading && (
         <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={selectImage} style={styles.button}>
+          <TouchableOpacity onPress={takePicture} style={styles.button}>
             <Image
               source={require('../assets/cameraIcon.png')}
               style={styles.buttonIcon}
