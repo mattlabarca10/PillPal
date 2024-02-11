@@ -115,30 +115,6 @@ const UploadComponent = () => {
 
   return (
     <View style={styles.mainContainer}>
-      {!loading && (
-        <>
-          <RNPickerSelect
-            onValueChange={value => setLanguage(value)}
-            items={[
-              {label: 'English', value: 'english'},
-              {label: 'Mandarin', value: 'mandarin'},
-              {label: 'Russian', value: 'russian'},
-              {label: 'Spanish', value: 'spanish'},
-              {label: 'Vietnamese', value: 'vietnamese'},
-            ]}
-            style={styles.pickerSelectStyles}
-            placeholder={{label: 'Select a language...', value: null}}
-          />
-          <TouchableOpacity onPress={takePicture} style={styles.button}>
-            <Text style={styles.buttonText}>Take Picture</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={selectImage} style={styles.button}>
-            <Text style={styles.buttonText}>Select Image</Text>
-          </TouchableOpacity>
-        </>
-      )}
-
       <ScrollView style={styles.scrollView}>
         {/* All your scrollable content goes here */}
         {loading && (

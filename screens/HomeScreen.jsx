@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#45D6B6',
+    backgroundColor: '#293241',
   },
   buttonContainer: {
     marginTop: 20,
