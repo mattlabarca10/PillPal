@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,21 +12,6 @@ import {
 //import { fetchData } from './api/GeminiAPI';
 import ImageUploadComponent from './components/Image';
 const Sound = require('react-native-sound');
-import dings from './assets/ding.mp3';
-
-var ding = new Sound(dings, error => {
-  if (error) {
-    console.log('failed to load the sound', error);
-    return;
-  }
-  // if loaded successfully
-  console.log(
-    'duration in seconds: ' +
-    ding.getDuration() +
-    'number of channels: ' +
-    ding.getNumberOfChannels(),
-  );
-});
 
 const App = () => {
   const [inputText, setInputText] = useState('');
@@ -39,37 +24,10 @@ const App = () => {
   };
   */
 
-  useEffect(() => {
-    ding.setVolume(1);
-    return () => {
-      ding.release();
-    };
-  }, []);
-  const playPause = () => {
-    ding.play(success => {
-      if (success) {
-        console.log('successfully finished playing');
-      } else {
-        console.log('playback failed due to audio decoding errors');
-      }
-    });
-  };
-
   return (
     <SafeAreaView style={styles.container}>
-      {/*<TextInput
-        style={styles.input}
-        placeholder="Enter text"
-        value={inputText}
-        onChangeText={setInputText}
-      />*/}
-      {/*<Button title="Fetch Data" onPress={handleFetchData} />*/}
       <Text style={styles.response}>{response}</Text>
       <ImageUploadComponent />
-
-      <TouchableOpacity style={styles.playBtn} onPress={playPause}>
-        <Text>Play</Text>
-      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -79,7 +37,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#45D6B6',
+    marginTop: 0,
   },
   input: {
     height: 40,
