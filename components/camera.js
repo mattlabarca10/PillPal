@@ -13,6 +13,7 @@ import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import SoundComponent from './sound.js';
 import RNPickerSelect from 'react-native-picker-select';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {auto} from 'openai/_shims/registry.mjs';
 
 const UploadComponent = () => {
   const [jsonData, setJsonData] = useState(null);
@@ -114,6 +115,30 @@ const UploadComponent = () => {
 
   return (
     <View style={styles.mainContainer}>
+      {!loading && (
+        <>
+          <RNPickerSelect
+            onValueChange={value => setLanguage(value)}
+            items={[
+              {label: 'English', value: 'english'},
+              {label: 'Mandarin', value: 'mandarin'},
+              {label: 'Russian', value: 'russian'},
+              {label: 'Spanish', value: 'spanish'},
+              {label: 'Vietnamese', value: 'vietnamese'},
+            ]}
+            style={styles.pickerSelectStyles}
+            placeholder={{label: 'Select a language...', value: null}}
+          />
+          <TouchableOpacity onPress={takePicture} style={styles.button}>
+            <Text style={styles.buttonText}>Take Picture</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={selectImage} style={styles.button}>
+            <Text style={styles.buttonText}>Select Image</Text>
+          </TouchableOpacity>
+        </>
+      )}
+
       <ScrollView style={styles.scrollView}>
         {/* All your scrollable content goes here */}
         {loading && (
@@ -131,32 +156,6 @@ const UploadComponent = () => {
           </>
         )}
       </ScrollView>
-
-      {!loading && (
-        <>
-          <RNPickerSelect
-            onValueChange={value => setLanguage(value)}
-            items={[
-              {label: 'English', value: 'english'},
-              {label: 'Mandarin', value: 'mandarin'},
-              {label: 'Russian', value: 'russian'},
-              {label: 'Spanish', value: 'spanish'},
-              {label: 'Vietnamese', value: 'vietnamese'},
-            ]}
-            style={pickerSelectStyles}
-            placeholder={{label: 'Select a language...', value: null}}
-          />
-
-          <TouchableOpacity onPress={selectImage} style={styles.button}>
-            <Text style={styles.buttonText}>Select Image</Text>
-          </TouchableOpacity>
-        </>
-      )}
-      {!loading && (
-        <TouchableOpacity onPress={takePicture} style={styles.button}>
-          <Text style={styles.buttonText}>Take Picture</Text>
-        </TouchableOpacity>
-      )}
     </View>
   );
 };
@@ -164,16 +163,28 @@ const UploadComponent = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'peachpuff',
+    width: '90%',
+    height: '50%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 20,
+    borderRadius: 10,
   },
   scrollView: {
-    // If you have other styles for padding, etc., keep them here
+    flexDirection: 'row',
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: 30,
   },
   button: {
     backgroundColor: '#007bff', // Ensure this is a color that contrasts well with white
     padding: 15,
     borderRadius: 5,
-    margin: 20,
+    margin: 5,
+    width: '70%', // Make sure the button is big enough to hold your text
     // Make sure the button is big enough to hold your text
     justifyContent: 'center', // This centers the text vertically
     alignItems: 'center', // This centers the text horizontally
@@ -214,18 +225,45 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 20,
   },
+  pickerSelectStyles: {
+    inputIOS: {
+      backgroundColor: '#f0f0f0', // Lighter shade of gray for a softer look
+      fontSize: 16,
+      margin: 20,
+      marginTop: 20,
+      borderWidth: 1,
+      borderColor: '#888', // Darker gray for the border to make it stand out
+      borderRadius: 8, // Increased border radius for a more rounded, modern look
+      color: '#333', // Dark gray color for the text, softer than pure black
+      paddingRight: 30, // to ensure the text is never behind the icon
+      fontFamily: 'Arial', // Use a more readable font
+    },
+    inputAndroid: {
+      fontSize: 16,
+      paddingHorizontal: 10,
+      paddingVertical: 8,
+      borderWidth: 0.5,
+      borderColor: 'purple',
+      borderRadius: 8,
+      color: 'black',
+      paddingRight: 30, // to ensure the text is never behind the icon
+    },
+  },
 });
 
 const pickerSelectStyles = StyleSheet.create({
   inputIOS: {
+    backgroundColor: '#f0f0f0', // Lighter shade of gray for a softer look
     fontSize: 16,
     paddingVertical: 12,
     paddingHorizontal: 10,
     borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 4,
-    color: 'black',
+    borderColor: '#888', // Darker gray for the border to make it stand out
+    borderRadius: 8, // Increased border radius for a more rounded, modern look
+    color: '#333', // Dark gray color for the text, softer than pure black
     paddingRight: 30, // to ensure the text is never behind the icon
+    fontFamily: 'Arial', // Use a more readable font
+    width: '70%', // Make sure the picker is big enough to hold your text
   },
   inputAndroid: {
     fontSize: 16,

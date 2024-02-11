@@ -1,13 +1,10 @@
-
 import React from 'react';
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 import HomeScreen from './screens/HomeScreen';
 import SignInScreen from './screens/SignInScreen';
 import SignUpScreen from './screens/SignUpScreen';
-import {
-  StyleSheet
-} from 'react-native';
+import {StyleSheet} from 'react-native';
 //
 const Stack = createStackNavigator();
 
@@ -29,7 +26,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#45D6B6',
+    backgroundColor: 'black',
     marginTop: 0,
   },
   input: {
