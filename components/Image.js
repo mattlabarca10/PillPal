@@ -79,45 +79,54 @@ const ImageUploadComponent = () => {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={styles.mainContainer}>
+      <ScrollView style={styles.scrollView}>
+        {/* All your scrollable content goes here */}
+        {loading && (
+          <View style={styles.loadingContainer}>
+            <ActivityIndicator size="large" color="#0000ff" />
+            <Text style={styles.loadingText}>Analyzing Image...</Text>
+          </View>
+        )}
+        {!loading && imageData && (
+          <>
+            {/*<Text style={styles.headerText}>Image Analysis</Text>*/}
+            <Text style={styles.ai}>{imageData}</Text>
+            {/* imageSource && <Image source={imageSource} style={styles.image} /> */}
+            {!loading && sound && <SoundComponent sound={sound} />}
+          </>
+        )}
+      </ScrollView>
       {!loading && (
         <TouchableOpacity onPress={selectImage} style={styles.button}>
-          <Text style={styles.buttonText}>Select Image</Text>
-        </TouchableOpacity>
+        <Text style={styles.buttonText}>Select Image</Text>
+      </TouchableOpacity>
       )}
-      {loading && (
-        <View style={styles.loadingContainer}>
-          <ActivityIndicator size="large" color="#0000ff" />
-          <Text style={styles.loadingText}>Analyzing Image...</Text>
-        </View>
-      )}
-      {!loading && imageData && (
-        <ScrollView style={styles.scrollView}>
-          <Text style={styles.headerText}>Image Analysis</Text>
-          <Text style={styles.ai}>{imageData}</Text>
-          {/* imageSource && <Image source={imageSource} style={styles.image} /> */}
-        </ScrollView>
-      )}
-      {!loading && sound && <SoundComponent sound={sound} />}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  mainContainer: {
     flex: 1,
     backgroundColor: '#fff',
   },
+  scrollView: {
+    // If you have other styles for padding, etc., keep them here
+  },
   button: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#007bff', // Ensure this is a color that contrasts well with white
     padding: 15,
     borderRadius: 5,
     margin: 20,
+    // Make sure the button is big enough to hold your text
+    justifyContent: 'center', // This centers the text vertically
+    alignItems: 'center', // This centers the text horizontally
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 20,
-    textAlign: 'center',
+    color: '#fff', // White color for the text, make sure it contrasts with button color
+    fontSize: 20, // Adjust font size as needed
+    textAlign: 'center', // Center text - though this is redundant if alignItems is set to 'center'
   },
   loadingContainer: {
     flex: 1,

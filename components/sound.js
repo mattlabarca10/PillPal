@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import {
   SafeAreaView,
   StyleSheet,
@@ -12,35 +12,37 @@ import {
 const Sound = require('react-native-sound');
 
 const SoundComponent = ({sound}) => {
-  var audio = new Sound(`"${sound}"`, null, error => {
-    console.log(`"${sound}"`);
-    if (error) {
-      console.log('failed to load the sound', error);
-      return;
-    }
-    // if loaded successfully
-    console.log(
-      'duration in seconds: ' +
-        audio.getDuration() +
-        'number of channels: ' +
-        audio.getNumberOfChannels(),
-    );
-  });
+  const audio = useRef(null);
+  const [playing, setPlaying] = useState(false);
 
-  const [playing, setPlaying] = useState();
   useEffect(() => {
-    audio.setVolume(1);
+    audio.current = new Sound(sound, null, error => {
+      console.log(sound);
+      if (error) {
+        console.log('failed to load the sound', error);
+        return;
+      }
+      // if loaded successfully
+      console.log(
+        'duration in seconds: ' +
+          audio.current.getDuration() +
+          'number of channels: ' +
+          audio.current.getNumberOfChannels(),
+      );
+    });
+
     return () => {
-      audio.release();
+      audio.current.release();
     };
-  }, []);
+  }, [sound]);
+
   const playPause = () => {
-    if (audio.isPlaying()) {
-      audio.pause();
+    if (audio.current.isPlaying()) {
+      audio.current.pause();
       setPlaying(false);
     } else {
       setPlaying(true);
-      audio.play(success => {
+      audio.current.play(success => {
         if (success) {
           setPlaying(false);
           console.log('successfully finished playing');
@@ -82,5 +84,6 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 });
+// ... rest of your code
 
 export default SoundComponent;
