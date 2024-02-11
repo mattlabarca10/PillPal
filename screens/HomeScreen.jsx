@@ -1,4 +1,5 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
+import { useFocusEffect } from '@react-navigation/native';
 import {
   SafeAreaView,
   StyleSheet,
@@ -10,12 +11,20 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import UploadComponent from '../components/camera';
 
-const HomeScreen = ({navigation}) => {
+const HomeScreen = ({ navigation }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-  useEffect(() => {
-    checkLoginStatus();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      const checkLoginStatus = async () => {
+        const token = await AsyncStorage.getItem('token');
+        setIsLoggedIn(!!token);
+      };
+
+      checkLoginStatus();
+    }, [])
+  );
+
 
   const checkLoginStatus = async () => {
     const token = await AsyncStorage.getItem('token');
@@ -36,12 +45,12 @@ const HomeScreen = ({navigation}) => {
           <>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('SignIn', {setIsLoggedIn})}>
+              onPress={() => navigation.navigate('SignIn', { setIsLoggedIn })}>
               <Text style={styles.buttonText}>Sign In</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
-              onPress={() => navigation.navigate('SignUp', {setIsLoggedIn})}>
+              onPress={() => navigation.navigate('SignUp', { setIsLoggedIn })}>
               <Text style={styles.buttonText}>Sign Up</Text>
             </TouchableOpacity>
           </>
