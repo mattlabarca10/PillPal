@@ -11,6 +11,7 @@ import {
 } from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import SoundComponent from './sound.js';
+import RNPickerSelect from 'react-native-picker-select';
 
 const UploadComponent = () => {
   const [jsonData, setJsonData] = useState(null);
@@ -18,6 +19,7 @@ const UploadComponent = () => {
   const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [sound, setSound] = useState(null);
+  const [language, setLanguage] = useState('english');
 
   const selectImage = () => {
     const options = {
@@ -73,7 +75,7 @@ const UploadComponent = () => {
     setLoading(true);
     try {
       const response = await fetch(
-        'https://backend-9b1x.onrender.com/vision/analyze-image',
+        'http://localhost:3007/vision/analyze-image',
         {
           method: 'POST',
           headers: {
@@ -81,6 +83,7 @@ const UploadComponent = () => {
           },
           body: JSON.stringify({
             image: base64Image,
+            language: language,
           }),
         },
       );
@@ -122,9 +125,23 @@ const UploadComponent = () => {
       </ScrollView>
 
       {!loading && (
+        <>
+        <RNPickerSelect
+        onValueChange={(value) => setLanguage(value)}
+        items={[
+          { label: 'English', value: 'english' },
+          { label: 'Mandarin', value: 'mandarin' },
+          { label: 'Russian', value: 'russian' },
+          { label: 'Spanish', value: 'spanish' },
+        ]}
+        style={pickerSelectStyles}
+        placeholder={{ label: 'Select a language...', value: null }}
+        />
+
         <TouchableOpacity onPress={selectImage} style={styles.button}>
           <Text style={styles.buttonText}>Select Image</Text>
         </TouchableOpacity>
+        </>
       )}
       {!loading && (
         <TouchableOpacity onPress={takePicture} style={styles.button}>
@@ -187,6 +204,29 @@ const styles = StyleSheet.create({
     height: 300,
     resizeMode: 'contain',
     marginBottom: 20,
+  },
+});
+
+const pickerSelectStyles = StyleSheet.create({
+  inputIOS: {
+    fontSize: 16,
+    paddingVertical: 12,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 4,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
+  },
+  inputAndroid: {
+    fontSize: 16,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    borderWidth: 0.5,
+    borderColor: 'purple',
+    borderRadius: 8,
+    color: 'black',
+    paddingRight: 30, // to ensure the text is never behind the icon
   },
 });
 
