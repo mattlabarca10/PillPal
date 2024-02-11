@@ -8,8 +8,7 @@ import SignUpScreen from './screens/SignUpScreen';
 import {
   StyleSheet
 } from 'react-native';
-
-
+//
 const Stack = createStackNavigator();
 
 const App = () => {
