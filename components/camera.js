@@ -133,6 +133,7 @@ const UploadComponent = () => {
           { label: 'Mandarin', value: 'mandarin' },
           { label: 'Russian', value: 'russian' },
           { label: 'Spanish', value: 'spanish' },
+          { label: 'Vietnamese', value: 'vietnamese' },
         ]}
         style={pickerSelectStyles}
         placeholder={{ label: 'Select a language...', value: null }}
