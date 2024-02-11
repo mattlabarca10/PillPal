@@ -12,6 +12,7 @@ import {
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import SoundComponent from './sound.js';
 import RNPickerSelect from 'react-native-picker-select';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const UploadComponent = () => {
   const [jsonData, setJsonData] = useState(null);
@@ -73,9 +74,15 @@ const UploadComponent = () => {
 
   const uploadImage = async base64Image => {
     setLoading(true);
+    const token = await AsyncStorage.getItem('token');
+    if (!token) {
+      console.error('No token found');
+      token = null;
+    }
+    console.log('Token:', token);
     try {
       const response = await fetch(
-        'https://backend-9b1x.onrender.com/vision/analyze-image',
+        'http://localhost:3007/vision/analyze-image',
         {
           method: 'POST',
           headers: {
@@ -84,6 +91,7 @@ const UploadComponent = () => {
           body: JSON.stringify({
             image: base64Image,
             language: language,
+            jwt_token: token,
           }),
         },
       );
