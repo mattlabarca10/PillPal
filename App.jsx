@@ -10,8 +10,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 //import { fetchData } from './api/GeminiAPI';
-import ImageUploadComponent from './components/Image';
-const Sound = require('react-native-sound');
+import UploadComponent from './components/camera.js';
 
 const App = () => {
   const [inputText, setInputText] = useState('');
@@ -27,7 +26,7 @@ const App = () => {
   return (
     <SafeAreaView style={styles.container}>
       <Text style={styles.response}>{response}</Text>
-      <ImageUploadComponent />
+      <UploadComponent />
     </SafeAreaView>
   );
 };
