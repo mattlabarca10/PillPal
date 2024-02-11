@@ -83,7 +83,7 @@ const UploadComponent = () => {
     console.log('Token:', token);
     try {
       const response = await fetch(
-        'http://localhost:3007/vision/analyze-image',
+        'https://backend-9b1x.onrender.com/vision/analyze-image',
         {
           method: 'POST',
           headers: {
