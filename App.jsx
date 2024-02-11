@@ -26,13 +26,6 @@ const App = () => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/*<TextInput
-        style={styles.input}
-        placeholder="Enter text"
-        value={inputText}
-        onChangeText={setInputText}
-      />*/}
-      {/*<Button title="Fetch Data" onPress={handleFetchData} />*/}
       <Text style={styles.response}>{response}</Text>
       <ImageUploadComponent />
     </SafeAreaView>
@@ -44,7 +37,8 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#F5FCFF',
+    backgroundColor: '#45D6B5',
+    marginTop: 0,
   },
   input: {
     height: 40,
