@@ -15,6 +15,7 @@ const ImageUploadComponent = () => {
   const [imageSource, setImageSource] = useState(null);
   const [imageData, setImageData] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [sound, setSound] = useState(null);
 
   const selectImage = () => {
     const options = {
@@ -58,6 +59,7 @@ const ImageUploadComponent = () => {
       const json = await response.json();
       console.log('Response from server:', json);
       setImageData(json.data);
+      setSound(json.sound);
 
       if (json.message) {
         alert('Image processed: ' + json.message);
