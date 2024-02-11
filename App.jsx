@@ -1,13 +1,14 @@
+
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import HomeScreen from './screens/HomeScreen'; // Adjust path as needed
-import SignInScreen from './screens/SignInScreen'; // Adjust path as needed
-import SignUpScreen from './screens/SignUpScreen'; // Adjust path as needed
+import HomeScreen from './screens/HomeScreen';
+import SignInScreen from './screens/SignInScreen';
+import SignUpScreen from './screens/SignUpScreen';
 import {
   StyleSheet
 } from 'react-native';
-//import UploadComponent from './components/camera'; // Assuming this is a screen component
+
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const App = () => {
     </NavigationContainer>
   );
 };
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,

@@ -4,7 +4,7 @@ import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View } from 'react-na
 import UploadComponent from '../components/camera';
 //import CustomHeader from './components/CustomHeader.jsx';
 
-const App = () => {
+const HomeScreen = ({ navigation }) => {
     const [inputText, setInputText] = useState('');
     const [response, setResponse] = useState('');
 
@@ -99,4 +99,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default App;
+export default HomeScreen;
