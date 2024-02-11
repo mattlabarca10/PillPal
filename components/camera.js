@@ -149,13 +149,49 @@ const UploadComponent = () => {
         )}
         {!loading && imageData && (
           <>
+            <Text style={styles.buttonText}>Transcript</Text>
+            {!loading && sound && <SoundComponent sound={sound} />}
             {/*<Text style={styles.headerText}>Image Analysis</Text>*/}
             <Text style={styles.ai}>{imageData}</Text>
             {/* imageSource && <Image source={imageSource} style={styles.image} /> */}
-            {!loading && sound && <SoundComponent sound={sound} />}
           </>
         )}
       </ScrollView>
+
+      {!loading && (
+        <>
+          <RNPickerSelect
+            onValueChange={value => setLanguage(value)}
+            items={[
+              {label: 'English', value: 'english'},
+              {label: 'Mandarin', value: 'mandarin'},
+              {label: 'Russian', value: 'russian'},
+              {label: 'Spanish', value: 'spanish'},
+              {label: 'Vietnamese', value: 'vietnamese'},
+            ]}
+            style={styles.pickerSelectStyles}
+            placeholder={{label: 'Select a language...', value: null}}
+          />
+        </>
+      )}
+
+      {!loading && (
+        <View style={styles.iconContainer}>
+          <TouchableOpacity onPress={selectImage} style={styles.button}>
+            <Image
+              source={require('../assets/cameraIcon.png')}
+              style={styles.buttonIcon}
+            />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={selectImage} style={styles.button}>
+            <Image
+              source={require('../assets/galleryIcon.webp')}
+              style={styles.buttonIcon}
+            />
+          </TouchableOpacity>
+        </View>
+      )}
     </View>
   );
 };
@@ -163,13 +199,14 @@ const UploadComponent = () => {
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
-    backgroundColor: 'peachpuff',
-    width: '90%',
-    height: '50%',
+    backgroundColor: '#98c1d9',
+    width: '100%',
+    height: '100%',
     justifyContent: 'center',
     alignItems: 'center',
     margin: 20,
     borderRadius: 10,
+    fontFamily: 'Calibri',
   },
   scrollView: {
     flexDirection: 'row',
@@ -180,7 +217,7 @@ const styles = StyleSheet.create({
     marginLeft: 30,
   },
   button: {
-    backgroundColor: '#007bff', // Ensure this is a color that contrasts well with white
+    backgroundColor: 'transparent', // Ensure this is a color that contrasts well with white
     padding: 15,
     borderRadius: 5,
     margin: 5,
@@ -190,7 +227,7 @@ const styles = StyleSheet.create({
     alignItems: 'center', // This centers the text horizontally
   },
   buttonText: {
-    color: '#fff', // White color for the text, make sure it contrasts with button color
+    color: 'black', // White color for the text, make sure it contrasts with button color
     fontSize: 20, // Adjust font size as needed
     textAlign: 'center', // Center text - though this is redundant if alignItems is set to 'center'
   },
@@ -214,10 +251,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   ai: {
-    fontSize: 40,
+    fontSize: 20,
     fontWeight: 'normal',
     textAlign: 'left',
-    marginBottom: 20,
+    margin: 15,
+    marginBottom: 10,
+    lineHeight: 40,
   },
   image: {
     width: 300,
@@ -229,8 +268,9 @@ const styles = StyleSheet.create({
     inputIOS: {
       backgroundColor: '#f0f0f0', // Lighter shade of gray for a softer look
       fontSize: 16,
-      margin: 20,
-      marginTop: 20,
+      width: '100%', // Make sure the picker is big enough to hold your text
+      paddingVertical: 12,
+
       borderWidth: 1,
       borderColor: '#888', // Darker gray for the border to make it stand out
       borderRadius: 8, // Increased border radius for a more rounded, modern look
@@ -239,15 +279,34 @@ const styles = StyleSheet.create({
       fontFamily: 'Arial', // Use a more readable font
     },
     inputAndroid: {
+      backgroundColor: '#f0f0f0', // Lighter shade of gray for a softer look
       fontSize: 16,
-      paddingHorizontal: 10,
-      paddingVertical: 8,
-      borderWidth: 0.5,
-      borderColor: 'purple',
-      borderRadius: 8,
-      color: 'black',
+      width: '100%', // Make sure the picker is big enough to hold your text
+      paddingVertical: 12,
+
+      borderWidth: 1,
+      borderColor: '#888', // Darker gray for the border to make it stand out
+      borderRadius: 8, // Increased border radius for a more rounded, modern look
+      color: '#333', // Dark gray color for the text, softer than pure black
       paddingRight: 30, // to ensure the text is never behind the icon
+      fontFamily: 'Arial', // Use a more readable font
     },
+  },
+  buttonIcon: {
+    flexDirection: 'column',
+    width: 100, // or the size you want
+    height: 100, // or the size you want
+    backgroundColor: 'transparent', // or the color you want
+    resizeMode: 'contain',
+    // other styles you want to apply to the image
+  },
+  iconContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
+    padding: 20,
+    margin: 0,
+    marginLeft: 30,
   },
 });
 

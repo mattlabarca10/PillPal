@@ -16,7 +16,7 @@ const SoundComponent = ({sound}) => {
   const [playing, setPlaying] = useState(false);
 
   useEffect(() => {
-    const newSound = 'https://backend-9b1x.onrender.com/' + sound;
+    const newSound = 'http://localhost:3007/' + sound;
     audio.current = new Sound(newSound, null, error => {
       console.log(sound);
       if (error) {
@@ -43,15 +43,13 @@ const SoundComponent = ({sound}) => {
       audio.current.pause();
       setPlaying(false);
     } else {
-      setPlaying(true);
       audio.current.play(success => {
         if (success) {
-          setPlaying(false);
           console.log('successfully finished playing');
         } else {
-          setPlaying(false);
           console.log('playback failed due to audio decoding errors');
         }
+        setPlaying(true);
       });
     }
   };
@@ -60,9 +58,10 @@ const SoundComponent = ({sound}) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.container}>
         <TouchableOpacity style={styles.button} onPress={playPause}>
-          <Text style={styles.buttonText}>
-            {playing ? 'Pause Sound' : 'Play Sound'}
-          </Text>
+          <Image
+            source={require('../assets/speakerIcon.png')}
+            style={styles.buttonIcon}
+          />
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -72,18 +71,24 @@ const SoundComponent = ({sound}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: 'transparent',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
-    backgroundColor: '#007bff',
-    padding: 15,
-    borderRadius: 5,
-    margin: 20,
+    backgroundColor: 'transparent',
+    width: 50,
+    height: 50,
   },
   buttonText: {
     color: '#fff',
     fontSize: 20,
     textAlign: 'center',
+  },
+  buttonIcon: {
+    width: 70, // or the size you want
+    height: 70, // or the size you want
+    // other styles you want to apply to the image
   },
 });
 // ... rest of your code
