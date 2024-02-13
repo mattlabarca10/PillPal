@@ -17,7 +17,7 @@ const SignUpScreen = ({navigation}) => {
 
     try {
       const response = await axios.post(
-        'https://backend-9b1x.onrender.com/api/auth/signup',
+        'https://pillpal-8x3i.onrender.com/api/auth/signup',
         {
           username,
           password,

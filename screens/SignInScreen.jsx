@@ -11,7 +11,7 @@ const SignInScreen = ({navigation}) => {
   const handleSignIn = async () => {
     try {
       const response = await axios.post(
-        'https://backend-9b1x.onrender.com/api/auth/signin',
+        'https://pillpal-8x3i.onrender.com/api/auth/signin',
         {login, password},
       );
       await AsyncStorage.setItem('token', response.data.token);

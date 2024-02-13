@@ -49,7 +49,7 @@
 //     setLoading(true);
 //     try {
 //       const response = await fetch(
-//         'https://backend-9b1x.onrender.com/vision/analyze-image',
+//         'https://pillpal-8x3i.onrender.com/vision/analyze-image',
 //         {
 //           method: 'POST',
 //           headers: {

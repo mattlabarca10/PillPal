@@ -83,7 +83,7 @@ const UploadComponent = () => {
     console.log('Token:', token);
     try {
       const response = await fetch(
-        'https://backend-9b1x.onrender.com/vision/analyze-image',
+        'https://pillpal-8x3i.onrender.com/vision/analyze-image',
         {
           method: 'POST',
           headers: {
@@ -140,10 +140,13 @@ const UploadComponent = () => {
             onValueChange={value => setLanguage(value)}
             items={[
               {label: 'English', value: 'english'},
-              {label: 'Mandarin', value: 'mandarin'},
-              {label: 'Russian', value: 'russian'},
-              {label: 'Spanish', value: 'spanish'},
-              {label: 'Vietnamese', value: 'vietnamese'},
+              {label: '普通话', value: 'mandarin'},
+              {label: 'Русский', value: 'russian'},
+              {label: 'español', value: 'spanish'},
+              {label: 'Tiếng Việt', value: 'vietnamese'},
+              {label: 'عربي', value: 'arabic'},
+              {label: 'हिंदी', value: 'hindi'},
+              {label: 'বাংলা', value: 'bengali'},
             ]}
             style={styles.pickerSelectStyles}
             placeholder={{label: 'Select a language...', value: null}}
