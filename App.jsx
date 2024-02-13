@@ -21,39 +21,6 @@ const App = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'black',
-    marginTop: 0,
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
-    width: '80%',
-    borderColor: 'gray',
-    borderRadius: 5,
-  },
-  response: {
-    marginTop: 20,
-    padding: 10,
-    color: 'black',
-  },
-  /* 
-    image: {
-      marginTop: 20,
-      width: 200, // Set the width and height as needed
-      height: 200,
-      resizeMode: 'cover', // Adjust the resize mode as needed
-    },
-     */
-  playBtn: {
-    padding: 20,
-  },
-});
+const styles = StyleSheet.create({});
 
 export default App;

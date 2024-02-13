@@ -156,14 +156,14 @@ const UploadComponent = () => {
 
       {!loading && (
         <View style={styles.iconContainer}>
-          <TouchableOpacity onPress={takePicture} style={styles.button}>
+          <TouchableOpacity onPress={takePicture} style={styles.buttonIcon}>
             <Image
               source={require('../assets/cameraIcon.png')}
               style={styles.buttonIcon}
             />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={selectImage} style={styles.button}>
+          <TouchableOpacity onPress={selectImage} style={styles.buttonIcon}>
             <Image
               source={require('../assets/galleryIcon.webp')}
               style={styles.buttonIcon}
@@ -177,10 +177,9 @@ const UploadComponent = () => {
 
 const styles = StyleSheet.create({
   mainContainer: {
-    flex: 1,
     backgroundColor: '#98c1d9',
     width: '100%',
-    height: '100%',
+    height: '60%',
     justifyContent: 'center',
     alignItems: 'center',
     margin: 20,
@@ -245,17 +244,17 @@ const styles = StyleSheet.create({
   },
   pickerSelectStyles: {
     inputIOS: {
-      backgroundColor: '#f0f0f0', // Lighter shade of gray for a softer look
+      backgroundColor: '#293241', // Lighter shade of gray for a softer look
       fontSize: 16,
       width: '100%', // Make sure the picker is big enough to hold your text
       paddingVertical: 12,
-
       borderWidth: 1,
       borderColor: '#888', // Darker gray for the border to make it stand out
       borderRadius: 8, // Increased border radius for a more rounded, modern look
-      color: '#333', // Dark gray color for the text, softer than pure black
+      color: '#fff', // Dark gray color for the text, softer than pure black
       paddingRight: 30, // to ensure the text is never behind the icon
       fontFamily: 'Arial', // Use a more readable font
+      textAlign: 'center',
     },
     inputAndroid: {
       backgroundColor: '#f0f0f0', // Lighter shade of gray for a softer look
@@ -273,45 +272,22 @@ const styles = StyleSheet.create({
   },
   buttonIcon: {
     flexDirection: 'column',
-    width: 100, // or the size you want
+    width: '50%', // or the size you want
     height: 100, // or the size you want
     backgroundColor: 'transparent', // or the color you want
+    justifyContent: 'center',
+    alignItems: 'center',
     resizeMode: 'contain',
+
     // other styles you want to apply to the image
   },
   iconContainer: {
     flexDirection: 'row',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     alignItems: 'center',
-    padding: 20,
-    margin: 0,
-    marginLeft: 30,
-  },
-});
-
-const pickerSelectStyles = StyleSheet.create({
-  inputIOS: {
-    backgroundColor: '#f0f0f0', // Lighter shade of gray for a softer look
-    fontSize: 16,
-    paddingVertical: 12,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: '#888', // Darker gray for the border to make it stand out
-    borderRadius: 8, // Increased border radius for a more rounded, modern look
-    color: '#333', // Dark gray color for the text, softer than pure black
-    paddingRight: 30, // to ensure the text is never behind the icon
-    fontFamily: 'Arial', // Use a more readable font
-    width: '70%', // Make sure the picker is big enough to hold your text
-  },
-  inputAndroid: {
-    fontSize: 16,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    borderWidth: 0.5,
-    borderColor: 'purple',
-    borderRadius: 8,
-    color: 'black',
-    paddingRight: 30, // to ensure the text is never behind the icon
+    padding: 0,
+    marginTop: 20,
+    marginBottom: 20,
   },
 });
 
