@@ -121,6 +121,7 @@ const UploadComponent = () => {
           <View style={styles.loadingContainer}>
             <ActivityIndicator size="large" color="#0000ff" />
             <Text style={styles.loadingText}>Analyzing Image...</Text>
+            <Image source={imageSource} style={styles.image} />
           </View>
         )}
         {!loading && imageData && (
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
   mainContainer: {
     backgroundColor: '#98c1d9',
     width: '100%',
-    height: '60%',
+    height: '75%',
     justifyContent: 'center',
     alignItems: 'center',
     margin: 20,
