@@ -84,7 +84,7 @@ To learn more about React Native, take a look at the following resources:
 
 # Contact Us
 
-Muhammad Chaudury: chaudhrysayyam85@gmail.com
-Jose Guzman: josegc7773@gmail.com
-Matthew LaBarca: matlab0510@gmail.com
-Ishraq Mahid: ishraqmahid@gmail.com
+- Muhammad Chaudury: chaudhrysayyam85@gmail.com
+- Jose Guzman: josegc7773@gmail.com
+- Matthew LaBarca: matlab0510@gmail.com
+- Ishraq Mahid: ishraqmahid@gmail.com
