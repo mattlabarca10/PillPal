@@ -2,6 +2,7 @@ This is a new [**React Native**](https://reactnative.dev) project, bootstrapped 
 
 # Devpost
 Most information pertaining to the application itself can be found in our Devpost
+
 https://devpost.com/software/pillpal-airu2d
 
 # What is PillPal?
