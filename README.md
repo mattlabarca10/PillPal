@@ -1,8 +1,15 @@
 This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
 
 # Devpost
-
+Most information pertaining to the application itself can be found in our Devpost
 https://devpost.com/software/pillpal-airu2d
+
+# What is PillPal?
+PillPal is an app dedicated to users who have trouble understanding their medications and need to keep track of their prescriptions. Sometimes, we have very real concerns regarding whether or not our grandparents—or even we—can take certain medications given their medical history. Will this medication conflict with other medicines? Are there things that we should be aware of when taking these medications?
+
+The traditional microscopic drug facts label and packets of legal documentation fail to provide an adequate understanding of drug use safety and fail to be transparent. We seek to utilize AI to provide increased understanding regarding what you’re taking, and when you should take it.
+
+The user can access the camera to take a picture of their prescription bottle. PillPal will take the data from that picture and generate information for the user, specifically: the purpose of the medicine, considerations with taking it, the assigned dosage, and personalized advice based on user information. PillPal also has translation capabilities, with written advice written in the language of their choice, while also reading this consultation out loud. Users are also able to create an account, enter their medical information, and save their medications to their profile to easily keep track of their prescriptions which they can get personalized results.
 
 # Getting Started
 
